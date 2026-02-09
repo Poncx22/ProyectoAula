@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${proveedor.idProv == 0 ? 'Nuevo proveedor' : 'Editar proveedor'}"></title>
+    <link rel="stylesheet" type="text/css" th:href="@{'/css/estilos.css'}">
+</head>
+<body>
+     <header>
+        <nav class="navbar">
+             <img src="/imgs/logo_header.png" alt="Logo GasTroTec" class="logoGsTc">
+             <div class="logo">GASTROTEC</div>
+             <ul class="nav-links">
+                 <li><a href="/CLIENTES">CLIENTES</a></li>
+                 <li><a href="/TRABAJADORES">TRABAJADORES</a></li>
+                 <li><a href="/PRODUCTOS" >PRODUCTOS</a></li>
+                 <li><a href="/INVENTARIO">INVENTARIO</a></li>
+                 <li><a href="/PROVEEDORES" class="active">PROVEEDORES</a></li>
+                 <li><a href="/VENTAS">VENTAS</a></li>
+                 <li><a href="/COMPROBANTES ">COMPROBANTES</a></li>
+             </ul>
+        </nav>
+    </header>
+
+    <h1 th:text="${proveedor.idProv == 0 ? 'Registrar proveedor' : 'Editar proveedor'}"></h1>
+
+
+    <form th:action="@{/proveedores}" th:object="${proveedor}" method="post">
+    
+    <div th:if="${proveedor.idProv != 0}">
+        <label>ID:</label>
+        <input type="number" th:field="*{idProv}" readonly/><br>
+    </div>
+    
+    <label>Código:</label>
+    <input type="text" th:field="*{codigoProv}" required/><br> 
+
+
+    <label>Nombre:</label>
+    <input type="text" th:field="*{nombreProv}" required/><br>
+
+    <label>Email:</label>
+    <input type="email" th:field="*{emailProv}" required/><br>
+    
+    <label>Dirección:</label>
+    <input type="text" th:field="*{direccionProv}" required/><br>
+    
+    <label>Teléfono:</label>
+    <input type="text" th:field="*{telefonoProv}" required/><br>
+
+    <button type="submit" th:text="${proveedor.idProv == 0 ? 'Guardar' : 'Actualizar'}"></button>
+    </form>
+
+
+    <a th:href="@{/proveedores}">⬅ Volver</a>
+    <footer>
+        <div class="footer-content">
+            <p>© 2025 GasTroTec | Todos los derechos reservados</p>
+            <p class="footer-links">
+                <a href="/terminos">Términos</a> |
+                <a href="/privacidad">Privacidad</a> |
+                <a href="/contacto">Contacto</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

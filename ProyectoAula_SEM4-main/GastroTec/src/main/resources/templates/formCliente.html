@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${cliente.idC == 0 ? 'Nuevo Cliente' : 'Editar Cliente'}"></title>
+    <link rel="stylesheet" type="text/css" th:href="@{'/css/estilos.css'}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <img src="/imgs/logo_header.png" alt="Logo GasTroTec" class="logoGsTc">
+            <div class="logo">GASTROTEC</div>
+            <ul class="nav-links">
+                <li><a href="/CLIENTES"class="active">CLIENTES</a></li>
+                <li><a href="/TRABAJADORES">TRABAJADORES</a></li>
+                <li><a href="/PRODUCTOS" >PRODUCTOS</a></li>
+                <li><a href="/INVENTARIO">INVENTARIO</a></li>
+                <li><a href="/PROVEEDORES">PROVEEDORES</a></li>
+                <li><a href="/VENTAS">VENTAS</a></li>
+                <li><a href="/COMPROBANTES ">COMPROBANTES</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <h1 th:text="${cliente.idC == 0 ? 'Registrar Cliente' : 'Editar Cliente'}"></h1>
+
+    <form th:action="@{/clientes}" th:object="${cliente}" method="post">
+        <!-- Campo oculto para mantener el ID -->
+        <input type="hidden" th:field="*{idC}"/>
+
+        Documento: <input type="text" th:field="*{documentoP}" required/><br>
+        Nombre: <input type="text" th:field="*{nombreP}" required/><br>
+        Apellido: <input type="text" th:field="*{apellidoP}" required/><br>
+        Contacto: <input type="text" th:field="*{contactoC}" required/><br>
+
+        <button type="submit" th:text="${cliente.idC == 0 ? 'Guardar' : 'Actualizar'}"></button>
+    </form>
+
+    <a href="/clientes">⬅ Volver</a>
+    <footer>
+        <div class="footer-content">
+            <p>© 2025 GasTroTec | Todos los derechos reservados</p>
+            <p class="footer-links">
+                <a href="/terminos">Términos</a> |
+                <a href="/privacidad">Privacidad</a> |
+                <a href="/contacto">Contacto</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

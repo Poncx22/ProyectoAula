@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Clientes</title>
+    <link rel="stylesheet" type="text/css" th:href="@{'/css/estilos.css'}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <img src="/imgs/logo_header.png" alt="Logo GasTroTec" class="logoGsTc">
+            <div class="logo">GASTROTEC</div>
+            <ul class="nav-links">
+                <li><a href="/CLIENTES" class="active">CLIENTES</a></li>
+                <li><a href="/TRABAJADORES">TRABAJADORES</a></li>
+                <li><a href="/PRODUCTOS">PRODUCTOS</a></li>
+                <li><a href="/INVENTARIO">INVENTARIO</a></li>
+                <li><a href="/PROVEEDORES">PROVEEDORES</a></li>
+                <li><a href="/VENTAS">VENTAS</a></li>
+                <li><a href="/COMPROBANTES">COMPROBANTES</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Lista de Clientes</h1>
+        <a href="/clientes/nuevo" class="btn">➕ Nuevo Cliente</a>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Documento</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Contacto</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="c : ${clientes}">
+                    <td th:text="${c.idC}"></td>
+                    <td th:text="${c.documentoP}"></td>
+                    <td th:text="${c.nombreP}"></td>
+                    <td th:text="${c.apellidoP}"></td>
+                    <td th:text="${c.contactoC}"></td>
+                    <td>
+                        <a th:href="@{'/clientes/editar/' + ${c.idC}}" class="btn btn-edit">Editar</a>
+                        <a th:href="@{'/clientes/eliminar/' + ${c.idC}}" class="btn btn-delete">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <p>© 2025 GasTroTec | Todos los derechos reservados</p>
+            <p class="footer-links">
+                <a href="/terminos">Términos</a> |
+                <a href="/privacidad">Privacidad</a> |
+                <a href="/contacto">Contacto</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

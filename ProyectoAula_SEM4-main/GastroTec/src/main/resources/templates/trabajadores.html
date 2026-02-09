@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Trabajadores</title>
+    <link rel="stylesheet" type="text/css" th:href="@{'/css/estilos.css'}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <img src="/imgs/logo_header.png" alt="Logo GasTroTec" class="logoGsTc">
+            <div class="logo">GASTROTEC</div>
+            <ul class="nav-links">
+                <li><a href="/CLIENTES">CLIENTES</a></li>
+                <li><a href="/TRABAJADORES"class="active">TRABAJADORES</a></li>
+                <li><a href="/PRODUCTOS" >PRODUCTOS</a></li>
+                <li><a href="/INVENTARIO">INVENTARIO</a></li>
+                <li><a href="/PROVEEDORES">PROVEEDORES</a></li>
+                <li><a href="/VENTAS">VENTAS</a></li>
+                <li><a href="/COMPROBANTES ">COMPROBANTES</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Lista de Trabajadores</h1>
+        <a href="/trabajadores/nuevo" class="btn">➕ Nuevo Trabajador</a>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Documento</th>
+                    <th>Primer Nombre</th>
+                    <th>Segundo Nombre</th>
+                    <th>Primer Apellido</th>
+                    <th>Segundo Apellido</th>
+                    <th>Teléfono</th>
+                    <th>Correo Electrónico</th>
+                    <th>Dirección</th>
+                    <th>Activo</th>
+                    <th>Salario</th>
+                    <th>Cargo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="t : ${trabajadores}">
+                    <td th:text="${t.idT}"></td>
+                    <td th:text="${t.documentoP}"></td>
+                    <td th:text="${t.nombreP}"></td>
+                    <td th:text="${t.segundoNombreT}"></td>
+                    <td th:text="${t.apellidoP}"></td>
+                    <td th:text="${t.segundoApellidoT}"></td>
+                    <td th:text="${t.telefonoT}"></td>
+                    <td th:text="${t.emailT}"></td>
+                    <td th:text="${t.direccionT}"></td>
+                    <td>
+                        <span th:text="${t.activoT ? '✔' : '❌'}"></span>
+                    </td>
+                    <td th:text="${t.salarioT}"></td>
+                    <td th:text="${t.cargoT}"></td>
+                    <td>
+                        <a th:href="@{'/trabajadores/editar/' + ${t.idT}}" class="btn btn-edit">Editar</a>
+                        <a th:href="@{'/trabajadores/eliminar/' + ${t.idT}}" class="btn btn-delete">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <p>© 2025 GasTroTec | Todos los derechos reservados</p>
+            <p class="footer-links">
+                <a href="/terminos">Términos</a> |
+                <a href="/privacidad">Privacidad</a> |
+                <a href="/contacto">Contacto</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

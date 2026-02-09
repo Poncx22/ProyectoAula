@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${trabajador.idT == 0 ? 'Nuevo trabajador' : 'Editar trabajador'}"></title>
+    <link rel="stylesheet" type="text/css" th:href="@{'/css/estilos.css'}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <img src="/imgs/logo_header.png" alt="Logo GasTroTec" class="logoGsTc">
+            <div class="logo">GASTROTEC</div>
+            <ul class="nav-links">
+                <li><a href="/CLIENTES">CLIENTES</a></li>
+                <li><a href="/TRABAJADORES"class="active">TRABAJADORES</a></li>
+                <li><a href="/PRODUCTOS" >PRODUCTOS</a></li>
+                <li><a href="/INVENTARIO">INVENTARIO</a></li>
+                <li><a href="/PROVEEDORES">PROVEEDORES</a></li>
+                <li><a href="/VENTAS">VENTAS</a></li>
+                <li><a href="/COMPROBANTES ">COMPROBANTES</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <h1 th:text="${trabajador.idT == 0 ? 'Registrar trabajador' : 'Editar trabajador'}"></h1>
+
+    <form th:action="@{/trabajadores}" th:object="${trabajador}" method="post">
+        <!-- Campo oculto para mantener el ID -->
+        <input type="hidden" th:field="*{idT}"/>
+
+        Documento: <input type="text" th:field="*{documentoP}" required/><br>
+        Nombre: <input type="text" th:field="*{nombreP}" required/><br>
+        Segundo Nombre: <input type="text" th:field="*{segundoNombreT}" required/><br>
+        Apellido: <input type="text" th:field="*{apellidoP}" required/><br>
+        Segundo Apellido: <input type="text" th:field="*{segundoApellidoT}" required/><br>
+        Teléfono: <input type="text" th:field="*{telefonoT}" required/><br>
+        Correo Electrónico: <input type="email" th:field="*{emailT}" required/><br>
+        Dirección: <input type="text" th:field="*{direccionT}" required/><br>
+        Activo: <input type="checkbox" th:field="*{activoT}"/><br>
+        Salario: <input type="number" th:field="*{salarioT}" required/><br>
+        Cargo: <input type="text" th:field="*{cargoT}" required/><br>
+
+        <button type="submit" th:text="${trabajador.idT == 0 ? 'Guardar' : 'Actualizar'}"></button>
+    </form>
+
+    <a href="/trabajadores">⬅ Volver</a>
+    <footer>
+        <div class="footer-content">
+            <p>© 2025 GasTroTec | Todos los derechos reservados</p>
+            <p class="footer-links">
+                <a href="/terminos">Términos</a> |
+                <a href="/privacidad">Privacidad</a> |
+                <a href="/contacto">Contacto</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

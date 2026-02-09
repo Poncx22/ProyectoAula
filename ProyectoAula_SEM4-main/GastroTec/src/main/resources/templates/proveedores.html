@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Proveedores</title>
+    <link rel="stylesheet" type="text/css" th:href="@{'/css/estilos.css'}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <img src="/imgs/logo_header.png" alt="Logo GasTroTec" class="logoGsTc">
+            <div class="logo">GASTROTEC</div>
+            <ul class="nav-links">
+                <li><a href="/CLIENTES" >CLIENTES</a></li>
+                <li><a href="/TRABAJADORES">TRABAJADORES</a></li>
+                <li><a href="/PRODUCTOS">PRODUCTOS</a></li>
+                <li><a href="/INVENTARIO">INVENTARIO</a></li>
+                <li><a href="/PROVEEDORES" class="active">PROVEEDORES</a></li>
+                <li><a href="/VENTAS">VENTAS</a></li>
+                <li><a href="/COMPROBANTES">COMPROBANTES</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Lista de Proveedores</h1>
+        <a th:href="@{/proveedores/nuevo}" class="btn">➕ Nuevo Proveedor</a>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Direccion</th>
+                    <th>Telefono</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="pv : ${proveedores}">
+    
+                    <td th:text="${pv.idProv}"></td>
+                    <td th:text="${pv.codigoProv}"></td>
+
+                    <td th:text="${pv.nombreProv}"></td>
+                    <td th:text="${pv.emailProv}"></td>
+                    <td th:text="${pv.direccionProv}"></td>
+                    <td th:text="${pv.telefonoProv}"></td>
+                    <td>
+                        <a th:href="@{'/proveedores/editar/' + ${pv.idProv}}" class="btn btn-edit">Editar</a>
+                        <a th:href="@{'/proveedores/eliminar/' + ${pv.idProv}}" class="btn btn-delete">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <p>© 2025 GasTroTec | Todos los derechos reservados</p>
+            <p class="footer-links">
+                <a href="/terminos">Términos</a> |
+                <a href="/privacidad">Privacidad</a> |
+                <a href="/contacto">Contacto</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
