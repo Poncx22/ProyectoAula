@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
+
 import com.ProAuSem4.GastroTec.Model.Cliente;
 
 @Repository // Indica que esta clase es un "repositorio" (simula el acceso a datos)
@@ -36,6 +37,7 @@ public class ClienteRepository {
         clientes.add(new Cliente(18, "1001890123", "Miguel", "Soto", "3172223344"));
         clientes.add(new Cliente(19, "1001901234", "Natalia", "Acosta", "3185556677"));
         clientes.add(new Cliente(20, "1002012345", "Jorge", "Montes", "3198889900"));
+        clientes.add(new Cliente(21, "1002123456", "Ana", "López", "3201112233"));
     }
 
     // Método para obtener todos los clientes

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="Comprobantes"></title>
+    <link rel="stylesheet" type="text/css" th:href="@{'/css/estilos.css'}">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <img src="/imgs/logo_header.png" alt="Logo GasTroTec" class="logoGsTc">
+            <div class="logo">GASTROTEC</div>
+
+            <ul class="nav-links">
+                <li><a href="/CLIENTES">CLIENTES</a></li>
+                <li><a href="/TRABAJADORES">TRABAJADORES</a></li>
+                <li><a href="/PRODUCTOS">PRODUCTOS</a></li>
+                <li><a href="/INVENTARIO">INVENTARIO</a></li>
+                <li><a href="/PROVEEDORES">PROVEEDORES</a></li>
+                <li><a href="/VENTAS">VENTAS</a></li>
+                <li><a href="/COMPROBANTES"class="active">COMPROBANTES</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <div class="container">
+        <h1>Lista de Productos</h1>
+        <a href="/productos/nuevo" class="btn">➕ Nuevo Producto</a>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Código</th> <th>Nombre</th>
+                    <th>Precio</th> <th>Categoria</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+    
+        </table>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <p>© 2025 GasTroTec | Todos los derechos reservados</p>
+            <p class="footer-links">
+                <a href="/terminos">Términos</a> |
+                <a href="/privacidad">Privacidad</a> |
+                <a href="/contacto">Contacto</a>
+            </p>
+        </div>
+    </footer>
+
+    
+</body>
+</html>
