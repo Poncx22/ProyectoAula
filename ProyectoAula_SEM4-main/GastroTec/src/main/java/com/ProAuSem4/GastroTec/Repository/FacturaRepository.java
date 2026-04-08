@@ -26,7 +26,9 @@ public class FacturaRepository {
         Pedido pedido = new Pedido();
 
         facturas.add(new Factura(nextId++, new Date(), "Efectivo", 100.0, 10.0, 5.0, 0.0, 115.0, pedido, cliente, trabajador));
-        // Add more sample facturas as needed
+        // Add more sample facturas as 
+        facturas.add(new Factura(nextId++, new Date(), "Transferencia", 150.0, 15.0, 7.5, 0.0, 172.5, pedido, cliente, trabajador));
+        facturas.add(new Factura(nextId++, new Date(), "Tarjeta", 200.0, 20.0, 10.0, 0.0, 230.0, pedido, cliente, trabajador));
     }
 
     public List<Factura> findAll() {
