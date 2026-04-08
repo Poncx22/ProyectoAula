@@ -27,21 +27,36 @@
 
 
     <div class="container">
-        <h1>Lista de Productos</h1>
-        <a href="/productos/nuevo" class="btn">➕ Nuevo Producto</a>
+        <h1>Lista de Comprobantes</h1>
+        <a href="/facturas/nuevo" class="btn">➕ Nuevo Comprobante</a>
 
         <table class="table">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Código</th> <th>Nombre</th>
-                    <th>Precio</th> <th>Categoria</th>
+                    <th>Fecha</th>
+                    <th>Método de Pago</th>
+                    <th>Total</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
+            <!-- Mostrar las facturas -->
+            <tbody>
+                <tr th:each="f : ${facturas}">
+                    <td th:text="${f.idF}"></td>
+                    <td th:text="${#dates.format(f.fechaF, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${f.metodoPagoF}"></td>
+                    <td th:text="${#numbers.formatDecimal(f.totalF, 0, 'POINT', 2, 'COMMA')}"></td>
+                    <td>
+                        <a th:href="@{'/facturas/editar/' + ${f.idF}}" class="btn btn-edit">Editar</a>
+                        <a th:href="@{'/facturas/eliminar/' + ${f.idF}}" class="btn btn-delete">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
     
         </table>
     </div>
+
     <footer>
         <div class="footer-content">
             <p>© 2025 GasTroTec | Todos los derechos reservados</p>
