@@ -5,21 +5,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{'/css/estilos.css'}">
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <img src="/imgs/logo_header.png" alt="Logo GasTroTec" class="logoGsTc">
-            <div class="logo">GASTROTEC</div>
-            <ul class="nav-links">
-                <li><a th:href="@{'/clientes'}">CLIENTES</a></li>
-                <li><a th:href="@{'/trabajadores'}">TRABAJADORES</a></li>
-                <li><a th:href="@{'/productos'}">PRODUCTOS</a></li>
-                <li><a th:href="@{'/inventario'}">INVENTARIO</a></li>
-                <li><a th:href="@{'/proveedores'}">PROVEEDORES</a></li>
-                <li><a th:href="@{'/ventas'}">VENTAS</a></li>
-                <li><a th:href="@{'/facturas'}" class="active">COMPROBANTES</a></li>
-            </ul>
-        </nav>
-    </header>
+    <div th:replace="~{fragments/header :: header}"></div>
 
     <div class="container">
         <h1>Lista de Trabajadores</h1>
@@ -67,15 +53,6 @@
             </tbody>
         </table>
     </div>
-    <footer>
-        <div class="footer-content">
-            <p>© 2025 GasTroTec | Todos los derechos reservados</p>
-            <p class="footer-links">
-                <a href="/terminos">Términos</a> |
-                <a href="/privacidad">Privacidad</a> |
-                <a href="/contacto">Contacto</a>
-            </p>
-        </div>
-    </footer>
+    <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>
