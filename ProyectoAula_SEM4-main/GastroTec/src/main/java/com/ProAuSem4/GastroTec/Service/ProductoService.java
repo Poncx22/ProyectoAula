@@ -27,6 +27,16 @@ public class ProductoService {
         return productoRepository.findById(id);
     }
 
+    // Busca productos por nombre
+    public List<Producto> getByNombre(String nombre) {
+        return productoRepository.findByNombre(nombre);
+    }
+
+    // Busca productos por código
+    public List<Producto> getByCodigo(String codigo) {
+        return productoRepository.findByCodigo(codigo);
+    }
+
     // Crea un nuevo producto
     public void create(Producto producto) {
         productoRepository.save(producto);

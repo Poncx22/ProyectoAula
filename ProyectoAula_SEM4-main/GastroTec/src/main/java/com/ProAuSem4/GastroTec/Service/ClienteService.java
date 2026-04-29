@@ -27,6 +27,16 @@ public class ClienteService {
         return clienteRepository.findById(id);
     }
 
+    // Buscar clientes por nombre o apellido
+    public List<Cliente> getByNombre(String nombre) {
+        return clienteRepository.findByNombre(nombre);
+    }
+
+    // Buscar clientes por documento
+    public List<Cliente> getByDocumento(String documento) {
+        return clienteRepository.findByDocumento(documento);
+    }
+
     // Crear un nuevo cliente
     public Cliente create(Cliente cliente) {
         return clienteRepository.save(cliente);

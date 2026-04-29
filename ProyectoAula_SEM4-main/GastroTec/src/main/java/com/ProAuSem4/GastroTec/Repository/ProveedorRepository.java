@@ -37,6 +37,22 @@ public class ProveedorRepository {
         return proveedores.stream().filter(pv -> pv.getIdProv() == id).findFirst();
     }
 
+    // Buscar proveedores por nombre (búsqueda parcial, ignora mayúsculas)
+    public List<Proveedor> findByNombre(String nombre) {
+        String nombreLower = nombre.toLowerCase();
+        return proveedores.stream()
+                .filter(pv -> pv.getNombreProv().toLowerCase().contains(nombreLower))
+                .collect(java.util.stream.Collectors.toList());
+    }
+
+    // Buscar proveedores por código (búsqueda parcial, ignora mayúsculas)
+    public List<Proveedor> findByCodigo(String codigo) {
+        String codigoLower = codigo.toLowerCase();
+        return proveedores.stream()
+                .filter(pv -> pv.getCodigoProv().toLowerCase().contains(codigoLower))
+                .collect(java.util.stream.Collectors.toList());
+    }
+
     public Proveedor save(Proveedor proveedor) {
         if (proveedor.getIdProv() == 0) { 
             proveedor.setIdProv(nextId++);

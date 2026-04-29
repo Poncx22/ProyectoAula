@@ -1,5 +1,9 @@
 package com.ProAuSem4.GastroTec.Controller;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,10 +23,37 @@ public class ProveedorController {
         this.proveedorService = proveedorService;
     }
 
-
+    // Mostrar lista de proveedores con filtros opcionales
     @GetMapping
-    public String listarProveedores(Model model) {
-        model.addAttribute("proveedores", proveedorService.getAll());
+    public String listarProveedores(
+            @RequestParam(value = "idBuscar", required = false) Integer idBuscar,
+            @RequestParam(value = "nombreBuscar", required = false) String nombreBuscar,
+            @RequestParam(value = "codigoBuscar", required = false) String codigoBuscar,
+            Model model) {
+
+        List<Proveedor> proveedores;
+        String filtroActivo = null;
+
+        if (idBuscar != null) {
+            Optional<Proveedor> resultado = proveedorService.getById(idBuscar);
+            proveedores = resultado.map(Collections::singletonList).orElse(Collections.emptyList());
+            model.addAttribute("idBuscar", idBuscar);
+            filtroActivo = "id";
+        } else if (nombreBuscar != null && !nombreBuscar.trim().isEmpty()) {
+            proveedores = proveedorService.getByNombre(nombreBuscar.trim());
+            model.addAttribute("nombreBuscar", nombreBuscar);
+            filtroActivo = "nombre";
+        } else if (codigoBuscar != null && !codigoBuscar.trim().isEmpty()) {
+            proveedores = proveedorService.getByCodigo(codigoBuscar.trim());
+            model.addAttribute("codigoBuscar", codigoBuscar);
+            filtroActivo = "codigo";
+        } else {
+            proveedores = proveedorService.getAll();
+        }
+
+        model.addAttribute("proveedores", proveedores);
+        model.addAttribute("filtroActivo", filtroActivo);
+        model.addAttribute("totalResultados", proveedores.size());
         return "proveedores"; 
     }
 

@@ -1,5 +1,9 @@
 package com.ProAuSem4.GastroTec.Controller;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ProAuSem4.GastroTec.Model.Producto;
 import com.ProAuSem4.GastroTec.Service.ProductoService;
@@ -25,11 +30,38 @@ public class ProductoController {
         this.productoService = productoService;
     }
 
-    // Mostrar lista de Productos en una página HTML
+    // Mostrar lista de Productos con filtros opcionales por ID, Nombre o Código
     @GetMapping
-    public String listarProductos(Model model) {
-        model.addAttribute("productos", productoService.getAll());
-        return "productos"; // Renderiza trabajadores.html
+    public String listarProductos(
+            @RequestParam(value = "idBuscar", required = false) Integer idBuscar,
+            @RequestParam(value = "nombreBuscar", required = false) String nombreBuscar,
+            @RequestParam(value = "codigoBuscar", required = false) String codigoBuscar,
+            Model model) {
+
+        List<Producto> productos;
+        String filtroActivo = null;
+
+        if (idBuscar != null) {
+            Optional<Producto> resultado = productoService.getById(idBuscar);
+            productos = resultado.map(Collections::singletonList).orElse(Collections.emptyList());
+            model.addAttribute("idBuscar", idBuscar);
+            filtroActivo = "id";
+        } else if (nombreBuscar != null && !nombreBuscar.trim().isEmpty()) {
+            productos = productoService.getByNombre(nombreBuscar.trim());
+            model.addAttribute("nombreBuscar", nombreBuscar);
+            filtroActivo = "nombre";
+        } else if (codigoBuscar != null && !codigoBuscar.trim().isEmpty()) {
+            productos = productoService.getByCodigo(codigoBuscar.trim());
+            model.addAttribute("codigoBuscar", codigoBuscar);
+            filtroActivo = "codigo";
+        } else {
+            productos = productoService.getAll();
+        }
+
+        model.addAttribute("productos", productos);
+        model.addAttribute("filtroActivo", filtroActivo);
+        model.addAttribute("totalResultados", productos.size());
+        return "productos";
     }
 
     // Formulario nuevo producto

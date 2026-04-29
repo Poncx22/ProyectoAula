@@ -33,6 +33,22 @@ public class TrabajadorRepository {
         return trabajadores.stream().filter(t -> t.getIdT() == id).findFirst();
     }
 
+    // Buscar trabajadores por nombre o apellido (búsqueda parcial, ignora mayúsculas)
+    public List<Trabajador> findByNombre(String nombre) {
+        String nombreLower = nombre.toLowerCase();
+        return trabajadores.stream()
+                .filter(t -> t.getNombreP().toLowerCase().contains(nombreLower)
+                        || t.getApellidoP().toLowerCase().contains(nombreLower))
+                .collect(java.util.stream.Collectors.toList());
+    }
+
+    // Buscar trabajadores por documento (búsqueda parcial)
+    public List<Trabajador> findByDocumento(String documento) {
+        return trabajadores.stream()
+                .filter(t -> t.getDocumentoP().contains(documento))
+                .collect(java.util.stream.Collectors.toList());
+    }
+
     // Guardar (agregar) un nuevo trabajador
     public Trabajador save(Trabajador trabajador) {
         if (trabajador.getIdT() == 0) { 

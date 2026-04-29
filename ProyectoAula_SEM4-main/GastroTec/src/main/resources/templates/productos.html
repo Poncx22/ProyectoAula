@@ -23,6 +23,38 @@
 
     <div class="container">
         <h1>Lista de Productos</h1>
+
+        <!-- Barra de búsqueda con múltiples filtros -->
+        <div class="search-bar">
+            <form th:action="@{/productos}" method="get" class="search-form">
+                <div class="search-input-group">
+                    <label for="idBuscar">🔍 ID:</label>
+                    <input type="number" id="idBuscar" name="idBuscar" placeholder="Ej: 101"
+                           th:value="${idBuscar}" min="1">
+                </div>
+                <div class="search-input-group">
+                    <label for="nombreBuscar">📝 Nombre:</label>
+                    <input type="text" id="nombreBuscar" name="nombreBuscar" placeholder="Ej: Mojito"
+                           th:value="${nombreBuscar}">
+                </div>
+                <div class="search-input-group">
+                    <label for="codigoBuscar">🏷️ Código:</label>
+                    <input type="text" id="codigoBuscar" name="codigoBuscar" placeholder="Ej: 300B"
+                           th:value="${codigoBuscar}">
+                </div>
+                <button type="submit" class="btn btn-search">Buscar</button>
+                <a th:if="${filtroActivo != null}" href="/productos" class="btn btn-limpiar">✕ Mostrar todos</a>
+            </form>
+        </div>
+
+        <!-- Mensaje de resultados -->
+        <div th:if="${filtroActivo != null and totalResultados == 0}" class="search-message search-empty">
+            ⚠️ No se encontraron productos con los criterios de búsqueda
+        </div>
+        <div th:if="${filtroActivo != null and totalResultados > 0}" class="search-message search-found">
+            ✅ Se encontraron <strong th:text="${totalResultados}"></strong> resultado(s)
+        </div>
+
         <a href="/productos/nuevo" class="btn">➕ Nuevo Producto</a>
 
         <table class="table">

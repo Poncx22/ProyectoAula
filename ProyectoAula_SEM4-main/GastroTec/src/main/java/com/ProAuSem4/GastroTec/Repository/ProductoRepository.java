@@ -11,7 +11,7 @@ import com.ProAuSem4.GastroTec.Model.Producto;
 @Repository
 public class ProductoRepository {
     private List<Producto> productos = new ArrayList<>();
-    private int nextId = 131; 
+    private int nextId = 131;
 
     public ProductoRepository() {
 
@@ -43,7 +43,8 @@ public class ProductoRepository {
         productos.add(new Producto(25, "210A", "CORONAZO", 30000.0, "CERVEZAS"));
 
         productos.add(new Producto(26, "300B", "BUCHANAN'S MASTER", 370000.0, "LICORES IMPORTADOS"));
-        productos.add(new Producto(27, "300T", "BUCHANAN'S MASTER", 40000.0, "LICORES IMPORTADOS")); // ID consecutivo, Código diferente
+        productos.add(new Producto(27, "300T", "BUCHANAN'S MASTER", 40000.0, "LICORES IMPORTADOS")); // ID consecutivo,
+                                                                                                     // Código diferente
         productos.add(new Producto(28, "301B", "BUCHANAN'S DE LUXE", 300000.0, "LICORES IMPORTADOS"));
         productos.add(new Producto(29, "301M", "BUCHANAN'S DE LUXE", 200000.0, "LICORES IMPORTADOS"));
         productos.add(new Producto(30, "301T", "BUCHANAN'S DE LUXE", 30000.0, "LICORES IMPORTADOS"));
@@ -102,7 +103,7 @@ public class ProductoRepository {
         productos.add(new Producto(79, "605K", "KAIPIRIOSCA", 28000.0, "CÓCTELES CON VODKA"));
         productos.add(new Producto(80, "606K", "LA PALABRA", 28000.0, "CÓCTELES CON VODKA"));
         productos.add(new Producto(81, "607K", "VERANO FELIZ", 28000.0, "CÓCTELES CON VODKA"));
-        
+
         productos.add(new Producto(82, "608K", "CAIPIRIÑA", 30000.0, "CÓCTELES CON RON"));
         productos.add(new Producto(83, "609K", "PIÑA COLADA", 30000.0, "CÓCTELES CON RON"));
         productos.add(new Producto(84, "610K", "MOJITO CUBANO", 28000.0, "CÓCTELES CON RON"));
@@ -111,10 +112,9 @@ public class ProductoRepository {
         productos.add(new Producto(87, "613K", "CÓCTEL DE FRUTAS", 28000.0, "CÓCTELES CON RON"));
         productos.add(new Producto(88, "614K", "ZOMBIE", 28000.0, "CÓCTELES CON RON"));
 
-   
         productos.add(new Producto(89, "615K", "TOMS COLLINS / GORDONS", 30000.0, "CÓCTELES CON GINEBRA"));
         productos.add(new Producto(90, "616K", "TOMS COLLINS / TANQUERAY", 30000.0, "CÓCTELES CON GINEBRA"));
-        productos.add(new Producto(91, "617K", "MOJITO CUBANO", 28000.0, "CÓCTELES CON GINEBRA")); 
+        productos.add(new Producto(91, "617K", "MOJITO CUBANO", 28000.0, "CÓCTELES CON GINEBRA"));
         productos.add(new Producto(92, "618K", "GIN TONIC / GORDONS", 20000.0, "CÓCTELES CON GINEBRA"));
         productos.add(new Producto(93, "619K", "GIN TONIC / TANQUERAY", 28000.0, "CÓCTELES CON GINEBRA"));
         productos.add(new Producto(94, "620K", "DRY MARTINI / GORDON", 20000.0, "CÓCTELES CON GINEBRA"));
@@ -168,8 +168,24 @@ public class ProductoRepository {
                 .findFirst();
     }
 
+    // Buscar productos por nombre (búsqueda parcial, ignora mayúsculas)
+    public List<Producto> findByNombre(String nombre) {
+        String nombreLower = nombre.toLowerCase();
+        return productos.stream()
+                .filter(p -> p.getNombreProd().toLowerCase().contains(nombreLower))
+                .collect(java.util.stream.Collectors.toList());
+    }
+
+    // Buscar productos por código (búsqueda parcial, ignora mayúsculas)
+    public List<Producto> findByCodigo(String codigo) {
+        String codigoLower = codigo.toLowerCase();
+        return productos.stream()
+                .filter(p -> p.getCodigoProd().toLowerCase().contains(codigoLower))
+                .collect(java.util.stream.Collectors.toList());
+    }
+
     public Producto save(Producto producto) {
-        if (producto.getIdProd() == 0) { 
+        if (producto.getIdProd() == 0) {
             producto.setIdProd(nextId++); // asigna un ID automáticamente
         }
         productos.removeIf(c -> c.getIdProd() == producto.getIdProd()); // elimina el viejo si existe

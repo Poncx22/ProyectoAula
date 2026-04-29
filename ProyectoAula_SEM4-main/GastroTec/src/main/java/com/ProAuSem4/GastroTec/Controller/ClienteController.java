@@ -1,5 +1,9 @@
 package com.ProAuSem4.GastroTec.Controller;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +21,38 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
 
-    // Mostrar lista de clientes en una página HTML
+    // Mostrar lista de clientes con filtros opcionales
     @GetMapping
-    public String listarClientes(Model model) {
-        model.addAttribute("clientes", clienteService.getAll()); // Pasamos lista a la vista
-        return "clientes"; // Renderiza clientes.html
+    public String listarClientes(
+            @RequestParam(value = "idBuscar", required = false) Integer idBuscar,
+            @RequestParam(value = "nombreBuscar", required = false) String nombreBuscar,
+            @RequestParam(value = "documentoBuscar", required = false) String documentoBuscar,
+            Model model) {
+
+        List<Cliente> clientes;
+        String filtroActivo = null;
+
+        if (idBuscar != null) {
+            Optional<Cliente> resultado = clienteService.getById(idBuscar);
+            clientes = resultado.map(Collections::singletonList).orElse(Collections.emptyList());
+            model.addAttribute("idBuscar", idBuscar);
+            filtroActivo = "id";
+        } else if (nombreBuscar != null && !nombreBuscar.trim().isEmpty()) {
+            clientes = clienteService.getByNombre(nombreBuscar.trim());
+            model.addAttribute("nombreBuscar", nombreBuscar);
+            filtroActivo = "nombre";
+        } else if (documentoBuscar != null && !documentoBuscar.trim().isEmpty()) {
+            clientes = clienteService.getByDocumento(documentoBuscar.trim());
+            model.addAttribute("documentoBuscar", documentoBuscar);
+            filtroActivo = "documento";
+        } else {
+            clientes = clienteService.getAll();
+        }
+
+        model.addAttribute("clientes", clientes);
+        model.addAttribute("filtroActivo", filtroActivo);
+        model.addAttribute("totalResultados", clientes.size());
+        return "clientes";
     }
 
     // Mostrar formulario para crear un nuevo cliente

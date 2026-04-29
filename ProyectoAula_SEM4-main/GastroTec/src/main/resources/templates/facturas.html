@@ -1,0 +1,100 @@
+    <!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="Comprobantes"></title>
+    <link rel="stylesheet" type="text/css" th:href="@{'/css/estilos.css'}">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <img src="/imgs/logo_header.png" alt="Logo GasTroTec" class="logoGsTc">
+            <div class="logo">GASTROTEC</div>
+
+            <ul class="nav-links">
+                <li><a th:href="@{'/clientes'}">CLIENTES</a></li>
+                <li><a th:href="@{'/trabajadores'}">TRABAJADORES</a></li>
+                <li><a th:href="@{'/productos'}">PRODUCTOS</a></li>
+                <li><a th:href="@{'/inventario'}">INVENTARIO</a></li>
+                <li><a th:href="@{'/proveedores'}">PROVEEDORES</a></li>
+                <li><a th:href="@{'/ventas'}">VENTAS</a></li>
+                <li><a th:href="@{'/facturas'}" class="active">COMPROBANTES</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <div class="container">
+        <h1>Lista de ComprobantesX</h1>
+
+        <!-- Barra de búsqueda con filtros -->
+        <div class="search-bar">
+            <form th:action="@{/facturas}" method="get" class="search-form">
+                <div class="search-input-group">
+                    <label for="idBuscar">🔍 ID:</label>
+                    <input type="number" id="idBuscar" name="idBuscar" placeholder="Ej: 1"
+                           th:value="${idBuscar}" min="1">
+                </div>
+                <div class="search-input-group">
+                    <label for="metodoPagoBuscar">💳 Método Pago:</label>
+                    <input type="text" id="metodoPagoBuscar" name="metodoPagoBuscar" placeholder="Ej: Efectivo"
+                           th:value="${metodoPagoBuscar}">
+                </div>
+                <button type="submit" class="btn btn-search">Buscar</button>
+                <a th:if="${filtroActivo != null}" href="/facturas" class="btn btn-limpiar">✕ Mostrar todos</a>
+            </form>
+        </div>
+
+        <!-- Mensaje de resultados -->
+        <div th:if="${filtroActivo != null and totalResultados == 0}" class="search-message search-empty">
+            ⚠️ No se encontraron comprobantes con los criterios de búsqueda
+        </div>
+        <div th:if="${filtroActivo != null and totalResultados > 0}" class="search-message search-found">
+            ✅ Se encontraron <strong th:text="${totalResultados}"></strong> resultado(s)
+        </div>
+
+        <a href="/facturas/nuevo" class="btn">➕ Nuevo Comprobante</a>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha</th>
+                    <th>Método de Pago</th>
+                    <th>Total</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <!-- Mostrar las facturas -->
+            <tbody>
+                <tr th:each="f : ${facturas}">
+                    <td th:text="${f.idF}"></td>
+                    <td th:text="${#dates.format(f.fechaF, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${f.metodoPagoF}"></td>
+                    <td th:text="${#numbers.formatDecimal(f.totalF, 0, 'POINT', 2, 'COMMA')}"></td>
+                    <td>
+                        <a th:href="@{'/facturas/editar/' + ${f.idF}}" class="btn btn-edit">Editar</a>
+                        <a th:href="@{'/facturas/eliminar/' + ${f.idF}}" class="btn btn-delete">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+    
+        </table>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>© 2025 GasTroTec | Todos los derechos reservados</p>
+            <p class="footer-links">
+                <a href="/terminos">Términos</a> |
+                <a href="/privacidad">Privacidad</a> |
+                <a href="/contacto">Contacto</a>
+            </p>
+        </div>
+    </footer>
+
+    
+</body>
+</html>

@@ -27,6 +27,16 @@ public class ProveedorService {
         return proveedorRepository.findById(id);
     }
 
+    // Busca proveedores por nombre
+    public List<Proveedor> getByNombre(String nombre) {
+        return proveedorRepository.findByNombre(nombre);
+    }
+
+    // Busca proveedores por código
+    public List<Proveedor> getByCodigo(String codigo) {
+        return proveedorRepository.findByCodigo(codigo);
+    }
+
 
     public void create(Proveedor proveedor) {
         proveedorRepository.save(proveedor);

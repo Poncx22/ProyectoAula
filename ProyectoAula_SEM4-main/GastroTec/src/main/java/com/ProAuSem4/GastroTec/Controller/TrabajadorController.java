@@ -1,5 +1,9 @@
 package com.ProAuSem4.GastroTec.Controller;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +21,38 @@ public class TrabajadorController {
         this.trabajadorService = trabajadorService;
     }
 
-    // Mostrar lista de trabajadores en una página HTML
+    // Mostrar lista de trabajadores con filtros opcionales
     @GetMapping
-    public String listarTrabajadores(Model model) {
-        model.addAttribute("trabajadores", trabajadorService.getAll());
-        return "trabajadores"; // Renderiza trabajadores.html
+    public String listarTrabajadores(
+            @RequestParam(value = "idBuscar", required = false) Integer idBuscar,
+            @RequestParam(value = "nombreBuscar", required = false) String nombreBuscar,
+            @RequestParam(value = "documentoBuscar", required = false) String documentoBuscar,
+            Model model) {
+
+        List<Trabajador> trabajadores;
+        String filtroActivo = null;
+
+        if (idBuscar != null) {
+            Optional<Trabajador> resultado = trabajadorService.getById(idBuscar);
+            trabajadores = resultado.map(Collections::singletonList).orElse(Collections.emptyList());
+            model.addAttribute("idBuscar", idBuscar);
+            filtroActivo = "id";
+        } else if (nombreBuscar != null && !nombreBuscar.trim().isEmpty()) {
+            trabajadores = trabajadorService.getByNombre(nombreBuscar.trim());
+            model.addAttribute("nombreBuscar", nombreBuscar);
+            filtroActivo = "nombre";
+        } else if (documentoBuscar != null && !documentoBuscar.trim().isEmpty()) {
+            trabajadores = trabajadorService.getByDocumento(documentoBuscar.trim());
+            model.addAttribute("documentoBuscar", documentoBuscar);
+            filtroActivo = "documento";
+        } else {
+            trabajadores = trabajadorService.getAll();
+        }
+
+        model.addAttribute("trabajadores", trabajadores);
+        model.addAttribute("filtroActivo", filtroActivo);
+        model.addAttribute("totalResultados", trabajadores.size());
+        return "trabajadores";
     }
 
     // Formulario nuevo trabajador

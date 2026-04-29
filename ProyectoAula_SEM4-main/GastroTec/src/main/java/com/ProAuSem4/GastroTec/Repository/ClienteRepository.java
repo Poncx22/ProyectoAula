@@ -48,6 +48,22 @@ public class ClienteRepository {
         return clientes.stream().filter(c -> c.getIdC() == id).findFirst();
     }
 
+    // Buscar clientes por nombre o apellido (búsqueda parcial, ignora mayúsculas)
+    public List<Cliente> findByNombre(String nombre) {
+        String nombreLower = nombre.toLowerCase();
+        return clientes.stream()
+                .filter(c -> c.getNombreP().toLowerCase().contains(nombreLower)
+                        || c.getApellidoP().toLowerCase().contains(nombreLower))
+                .collect(java.util.stream.Collectors.toList());
+    }
+
+    // Buscar clientes por documento (búsqueda parcial)
+    public List<Cliente> findByDocumento(String documento) {
+        return clientes.stream()
+                .filter(c -> c.getDocumentoP().contains(documento))
+                .collect(java.util.stream.Collectors.toList());
+    }
+
     // Guardar (agregar) un nuevo cliente
     public Cliente save(Cliente cliente) {
         if (cliente.getIdC() == 0) { 

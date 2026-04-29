@@ -27,6 +27,16 @@ public class TrabajadorService {
         return trabajadorRepository.findById(id);
     }
 
+    // Busca trabajadores por nombre o apellido
+    public List<Trabajador> getByNombre(String nombre) {
+        return trabajadorRepository.findByNombre(nombre);
+    }
+
+    // Busca trabajadores por documento
+    public List<Trabajador> getByDocumento(String documento) {
+        return trabajadorRepository.findByDocumento(documento);
+    }
+
     // Crea un nuevo trabajador
     public Trabajador create(Trabajador trabajador) {
         return trabajadorRepository.save(trabajador);
