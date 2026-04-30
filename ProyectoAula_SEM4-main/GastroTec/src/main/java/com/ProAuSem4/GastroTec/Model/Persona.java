@@ -1,9 +1,18 @@
 package com.ProAuSem4.GastroTec.Model;
 
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Column;
+
+@MappedSuperclass
 public abstract class Persona {
     
+    @Column(name = "documento")
     protected String documentoP;
+    
+    @Column(name = "nombre")
     protected String nombreP;
+    
+    @Column(name = "apellido")
     protected String apellidoP;
 
     public Persona() {

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import com.ProAuSem4.GastroTec.Model.Cliente;
 import com.ProAuSem4.GastroTec.Service.ClienteService;
 
-@Controller 
+@Controller
 @RequestMapping("/clientes") // Ruta base
 public class ClienteController {
 
