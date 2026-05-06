@@ -29,21 +29,21 @@ public class ClienteService {
 
     // Buscar clientes por nombre o apellido
     public List<Cliente> getByNombre(String nombre) {
-        return clienteRepository.findByNombre(nombre);
+        return clienteRepository.findByNombrePContainingIgnoreCaseOrApellidoPContainingIgnoreCase(nombre, nombre);
     }
 
     // Buscar clientes por documento
     public List<Cliente> getByDocumento(String documento) {
-        return clienteRepository.findByDocumento(documento);
+        return clienteRepository.findByDocumentoPContaining(documento);
     }
 
-    // Crear un nuevo cliente
-    public Cliente create(Cliente cliente) {
+    // Guardar o actualizar un cliente
+    public Cliente save(Cliente cliente) {
         return clienteRepository.save(cliente);
     }
 
     // Eliminar un cliente
-    public boolean delete(int id) {
-        return clienteRepository.deleteById(id);
+    public void delete(int id) {
+        clienteRepository.deleteById(id);
     }
 }

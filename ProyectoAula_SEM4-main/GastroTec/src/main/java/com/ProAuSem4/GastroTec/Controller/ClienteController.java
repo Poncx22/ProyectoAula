@@ -65,7 +65,7 @@ public class ClienteController {
     // Procesar formulario de creación
     @PostMapping
     public String guardarCliente(@ModelAttribute Cliente cliente) {
-        clienteService.create(cliente);
+        clienteService.save(cliente);
         return "redirect:/clientes"; // Redirige a la lista
     }
 
