@@ -29,21 +29,21 @@ public class TrabajadorService {
 
     // Busca trabajadores por nombre o apellido
     public List<Trabajador> getByNombre(String nombre) {
-        return trabajadorRepository.findByNombre(nombre);
+        return trabajadorRepository.findByNombrePContainingIgnoreCaseOrApellidoPContainingIgnoreCase(nombre, nombre);
     }
 
     // Busca trabajadores por documento
     public List<Trabajador> getByDocumento(String documento) {
-        return trabajadorRepository.findByDocumento(documento);
+        return trabajadorRepository.findByDocumentoPContaining(documento);
     }
 
-    // Crea un nuevo trabajador
-    public Trabajador create(Trabajador trabajador) {
+    // Guardar o actualizar un trabajador
+    public Trabajador save(Trabajador trabajador) {
         return trabajadorRepository.save(trabajador);
     }
 
     // Elimina un trabajador
-    public boolean delete(int id) {
-        return trabajadorRepository.deleteById(id);
+    public void delete(int id) {
+        trabajadorRepository.deleteById(id);
     }
 }

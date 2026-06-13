@@ -58,27 +58,38 @@
 
         <a href="/productos/nuevo" class="btn">➕ Nuevo Producto</a>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Código</th> <th>Nombre</th>
-                    <th>Precio</th> <th>Categoria</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="p : ${productos}">
-                    <td th:text="${p.idProd}"></td>
-                    <td th:text="${p.codigoProd}"></td> <td th:text="${p.nombreProd}"></td>
-                    <td th:text="${#numbers.formatDecimal(p.precioProd, 0, 'POINT', 2, 'COMMA')}"></td> <td th:text="${p.categoriaProd}"></td>
-                    <td>
-                        <a th:href="@{'/productos/editar/' + ${p.idProd}}" class="btn btn-edit">Editar</a>
-                        <a th:href="@{'/productos/eliminar/' + ${p.idProd}}" class="btn btn-delete">Eliminar</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <!-- Modelo Grid (Tipo Cajas/Cards) -->
+        <div class="products-grid">
+            <div class="product-card" th:each="p : ${productos}">
+                <!-- Contenedor superior para la previsualización de la imagen -->
+                <!-- NOTA: Cuando agregues el campo de imagen en tu base de datos y entidad Java,
+                     puedes hacer que sea dinámico reemplazando el style con:
+                     th:style="'background-image: url(' + ${p.imagenUrl} + ');'" -->
+                <div class="product-image-container" th:style="'background-image: url(' + (${p.imagenUrl != null and p.imagenUrl != ''} ? ${p.imagenUrl} : '/imgs/logo_header.png') + ');'">
+                    <!-- Badges (Insignias flotantes sobre la imagen) -->
+                    <span class="badge badge-code" th:text="${p.codigoProd}">CÓDIGO</span>
+                    <span class="badge badge-category" th:text="${p.categoriaProd}">Categoría</span>
+                    
+                    <!-- ID de producto flotante -->
+                    <span class="product-id" th:text="'#' + ${p.idProd}">#ID</span>
+                </div>
+                
+                <!-- Información del Producto -->
+                <div class="product-info">
+                    <h3 class="product-name" th:text="${p.nombreProd}">Nombre del Producto</h3>
+                    <div class="product-price-container">
+                        <span class="price-label">Precio</span>
+                        <span class="product-price" th:text="'S/ ' + ${#numbers.formatDecimal(p.precioProd, 0, 'POINT', 2, 'COMMA')}">S/ 0.00</span>
+                    </div>
+                </div>
+                
+                <!-- Acciones dentro de la caja de cada producto -->
+                <div class="product-actions">
+                    <a th:href="@{'/productos/editar/' + ${p.idProd}}" class="btn btn-edit">✏️ Editar</a>
+                    <a th:href="@{'/productos/eliminar/' + ${p.idProd}}" class="btn btn-delete">🗑️ Eliminar</a>
+                </div>
+            </div>
+        </div>
     </div>
     <footer>
         <div class="footer-content">

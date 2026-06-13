@@ -1,0 +1,24 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-GastroTecApplication<GastroTec>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.ProAuSem4.GastroTec.GastroTecApplication",
+      "projectName": "GastroTec",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-AutopartcoApplication<autopartco>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.autopartco.AutopartcoApplication",
+      "projectName": "autopartco",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

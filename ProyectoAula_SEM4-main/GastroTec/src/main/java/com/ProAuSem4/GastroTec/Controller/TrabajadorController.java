@@ -37,14 +37,17 @@ public class TrabajadorController {
             trabajadores = resultado.map(Collections::singletonList).orElse(Collections.emptyList());
             model.addAttribute("idBuscar", idBuscar);
             filtroActivo = "id";
+
         } else if (nombreBuscar != null && !nombreBuscar.trim().isEmpty()) {
             trabajadores = trabajadorService.getByNombre(nombreBuscar.trim());
             model.addAttribute("nombreBuscar", nombreBuscar);
             filtroActivo = "nombre";
+
         } else if (documentoBuscar != null && !documentoBuscar.trim().isEmpty()) {
             trabajadores = trabajadorService.getByDocumento(documentoBuscar.trim());
             model.addAttribute("documentoBuscar", documentoBuscar);
             filtroActivo = "documento";
+
         } else {
             trabajadores = trabajadorService.getAll();
         }
@@ -62,10 +65,10 @@ public class TrabajadorController {
         return "formTrabajador";
     }
 
-    // Guardar trabajador
+    // Guardar trabajador en la base de datos
     @PostMapping
     public String guardarTrabajador(@ModelAttribute Trabajador trabajador) {
-        trabajadorService.create(trabajador);
+        trabajadorService.save(trabajador);
         return "redirect:/trabajadores";
     }
 

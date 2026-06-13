@@ -1,22 +1,52 @@
 package com.ProAuSem4.GastroTec.Model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "trabajadores")
 public class Trabajador extends Persona {
-    
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_trabajador")
+
     private int idT;
+    @Column(name = "segundo_nombre")
     private String segundoNombreT;
+
+    @Column(name = "segundo_apellido")
     private String segundoApellidoT;
+
+    @Column(name = "telefono")
     private String telefonoT;
+
+    @Column(name = "email")
     private String emailT;
+
+    @Column(name = "direccion")
     private String direccionT;
+
+    @Column(name = "activo")
     private boolean activoT;
+
+    @Column(name = "salario")
     private double salarioT;
+
+    @Column(name = "cargo")
     private String cargoT;
 
     public Trabajador() {
         super();
     }
 
-    public Trabajador(int idT, String documentoP, String nombreP, String segundoNombreT, String apellidoP, String segundoApellidoT, String telefonoT, String emailT, String direccionT, boolean activoT, double salarioT, String cargoT) {
+    public Trabajador(int idT, String documentoP, String nombreP, String segundoNombreT, String apellidoP,
+            String segundoApellidoT, String telefonoT, String emailT, String direccionT, boolean activoT,
+            double salarioT, String cargoT) {
         super(documentoP, nombreP, apellidoP);
 
         this.idT = idT;
@@ -29,11 +59,11 @@ public class Trabajador extends Persona {
         this.salarioT = salarioT;
         this.cargoT = cargoT;
     }
-    
+
     public int getIdT() {
         return idT;
     }
-    
+
     public void setIdT(int idT) {
         this.idT = idT;
     }
@@ -103,4 +133,3 @@ public class Trabajador extends Persona {
     }
 
 }
-
